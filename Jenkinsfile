@@ -1,5 +1,5 @@
 pipeline {
-  enviroment {
+  environment {
     registry = 'jaabayron/flask_app'
     registryCredentials = 'docker'
     cluster_name = 'skillstorm'
@@ -45,7 +45,7 @@ pipeline {
               }
             }
             sh "kubectl apply -f deployment.yaml -n ${namespace}"\
-            sh "kubectl -n ${namespace} rollout restart deployment flaskcontainer "
+            sh "kubectl -n ${namespace} rollout restart deployment flaskcontainer  "
 } 
       }
     }
