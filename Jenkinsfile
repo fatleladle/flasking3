@@ -1,12 +1,9 @@
 pipeline {
-<<<<<<< HEAD
   enviroment {
     registry = 'jaabayron/flask_app'
     registryCredentials = 'docker'
     cluster_name = 'skillstorm'
   }
-=======
->>>>>>> bccbd0f3ed50e7decfb2902108c7e9bd1d43e752
   agent {
     node {
       label 'docker'
@@ -19,24 +16,20 @@ pipeline {
         git(url: 'https://github.com/fatleladle/flasking3', branch: 'main')
       }
     }
-
-    stage('Build') {
+    stage('Build Stage') {
       steps {
-        sh 'docker build -t jaabayron/flask_app .'
+        script {
+          dockerImage = docker.build(registry)
+        }
       }
     }
-
-    stage('Docker Login') {
+    stage('Deploy Stage') {
       steps {
-        sh 'docker login -u jaabayron -p dckr_pat_9vlS5P45fPFsDnnftEcV4hWVTOg'
+        script {
+          docker.withRegistry('', registryCredentials)
+            dockerImage.push()
+        }
       }
     }
-
-    stage('Docker Push') {
-      steps {
-        sh 'docker push jaabayron/flask_app '
-      }
-    }
-
   }
 }
