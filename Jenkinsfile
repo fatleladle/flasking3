@@ -1,9 +1,12 @@
 pipeline {
+<<<<<<< HEAD
   enviroment {
     registry = 'jaabayron/flask_app'
     registryCredentials = 'docker'
     cluster_name = 'skillstorm'
   }
+=======
+>>>>>>> bccbd0f3ed50e7decfb2902108c7e9bd1d43e752
   agent {
     node {
       label 'docker'
